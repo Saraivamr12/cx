@@ -8,7 +8,7 @@ from datetime import datetime, timedelta
 st.set_page_config(page_title="Dashboard Databricks", layout="wide")
 
 # 🔹 Título
-st.title("📊 Dashboard de Atendimento - Notas e Tempo de Espera")
+st.title("Dashboard de Atendimento - Notas e Tempo de Espera")
 
 # 🔹 Configuração da conexão com Databricks
 HOST = "dbc-6a9b798d-9256.cloud.databricks.com"
@@ -16,7 +16,7 @@ HTTP_PATH = "/sql/1.0/warehouses/31ee6c7460cbead5"
 ACCESS_TOKEN = "dapi35df33ea3adaf82c8565b62005f6fcea"
 
 # 🔹 Filtros
-st.sidebar.header("📅 Filtros")
+st.sidebar.header("Filtros")
 data_inicio = st.sidebar.date_input("Data de Início", datetime.now() - timedelta(days=7))
 data_fim = st.sidebar.date_input("Data de Fim", datetime.now())
 
@@ -213,25 +213,25 @@ st.subheader("📊 Indicadores")
 col1, col2, col3 = st.columns(3)
 
 with col1:
-    st.metric(label="📞 Total de Atendimentos Humanos", value=f"{total_atendimentos}")
+    st.metric(label="Total de Atendimentos Humanos", value=f"{total_atendimentos}")
 
 with col2:
-    st.metric(label="⏳ Tempo Médio de Espera (min)", value=f"{tempo_medio_espera:.2f}")
+    st.metric(label="Tempo Médio de Espera (min)", value=f"{tempo_medio_espera:.2f}")
 
 # Gráficos
 if not df_atendentes.empty:
-    st.subheader("📈 Média das Notas por Atendente")
+    st.subheader("Média das Notas por Atendente")
     fig = px.bar(df_atendentes, x="nome_atendente", y="media_nota_atendente",
                  title="Média das Notas por Atendente", text_auto=True)
     st.plotly_chart(fig)
 
 if not df_ocorrencias.empty:
-    st.subheader("📊 Total de Ocorrências por Atendente")
+    st.subheader("Total de Ocorrências por Atendente")
     fig = px.bar(df_ocorrencias, x="nome_atendente", y="total_ocorrencias",
                  title="Total de Ocorrências por Atendente", text_auto=True)
     st.plotly_chart(fig)
 
 # Exibir a tabela final consolidada
 if not df_consolidado.empty:
-    st.subheader("📋 Dados Consolidados por Agente")
+    st.subheader("Dados Consolidados por Agente")
     st.dataframe(df_consolidado)
